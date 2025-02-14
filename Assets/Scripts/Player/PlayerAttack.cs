@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject[] fireballs;
+    [SerializeField] private float attackCooldown;//thời gian hồi chiêu tấn công 
+    [SerializeField] private Transform firePoint;//điểm phát sinh đạn 
+    [SerializeField] private GameObject[] fireballs;//mảng đối tượng đạn
     [SerializeField] private AudioClip fireballSound;
 
     private Animator anim;

@@ -1,11 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
     [SerializeField] private AudioClip checkpoint;
     private Transform currentCheckpoint;
     private Health playerHealth;
-    private UIManager uiManager;
+    private UIManager uiManager; //UI màn hình kết thúc sau khi người chơi chết 
 
     private void Awake()
     {
@@ -21,17 +21,17 @@ public class PlayerRespawn : MonoBehaviour
             return;
         }
 
-        playerHealth.Respawn(); //Restore player health and reset animation
-        transform.position = currentCheckpoint.position; //Move player to checkpoint location
+        playerHealth.Respawn(); //phục hồi sức khỏe của người chơi và thiết lập hình ảnh 
+        transform.position = currentCheckpoint.position; //di chuyển người chơi đến vị trí checkopion  
 
-        //Move the camera to the checkpoint's room
+        //di chuyển máy quay đến vị trí checkpoin sau khi player chết 
         Camera.main.GetComponent<CameraController>().MoveToNewRoom(currentCheckpoint.parent);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Checkpoint")
         {
-            currentCheckpoint = collision.transform;
+            currentCheckpoint = collision.transform;//cập nhập vị trí checkpoint
             SoundManager.instance.PlaySound(checkpoint);
             collision.GetComponent<Collider2D>().enabled = false;
             collision.GetComponent<Animator>().SetTrigger("activate");

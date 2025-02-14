@@ -1,15 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private AudioClip gameOverSound;
+    
 
     private void Awake()
     {
-        gameOverScreen.SetActive(false);
+        gameOverScreen.SetActive(false); //ẩn màn hình gameover khi bắt đầu trò chơi
     }
+
+   
+ 
 
     #region Game Over Functions
     //Game over function

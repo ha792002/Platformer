@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement Parameters")]
+    [Header("Movement Parameters")] //thông số di chuyển
     [SerializeField] private float speed;
-    [SerializeField] private float jumpPower;
+    [SerializeField] private float jumpPower;//lực nhảy
 
     [Header("Coyote Time")]
-    [SerializeField] private float coyoteTime; //How much time the player can hang in the air before jumping
-    private float coyoteCounter; //How much time passed since the player ran off the edge
+    [SerializeField] private float coyoteTime; //thời gian player ở trên không
+    private float coyoteCounter; //đếm thời gian ở trên không
 
     [Header("Multiple Jumps")]
     [SerializeField] private int extraJumps;
     private int jumpCounter;
 
     [Header("Wall Jumping")]
-    [SerializeField] private float wallJumpX; //Horizontal wall jump force
-    [SerializeField] private float wallJumpY; //Vertical wall jump force
+    [SerializeField] private float wallJumpX; //lực nhảy theo chiều X
+    [SerializeField] private float wallJumpY; //Lực nhảy theo chiều Y
 
     [Header("Layers")]
     [SerializeField] private LayerMask groundLayer;
@@ -25,15 +26,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip jumpSound;
 
+    
+
     private Rigidbody2D body;
     private Animator anim;
     private BoxCollider2D boxCollider;
     private float wallJumpCooldown;
     private float horizontalInput;
+    
 
     private void Awake()
     {
-        //Grab references for rigidbody and animator from object
+        
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
@@ -43,21 +47,21 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
 
-        //Flip player when moving left-right
+        //di chuyển trái , phải
         if (horizontalInput > 0.01f)
             transform.localScale = Vector3.one;
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
 
-        //Set animator parameters
+        
         anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("grounded", isGrounded());
 
-        //Jump
+        //nhảy
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
-
-        //Adjustable jump height
+          
+        
         if (Input.GetKeyUp(KeyCode.Space) && body.velocity.y > 0)
             body.velocity = new Vector2(body.velocity.x, body.velocity.y / 2);
 
@@ -73,22 +77,22 @@ public class PlayerMovement : MonoBehaviour
 
             if (isGrounded())
             {
-                coyoteCounter = coyoteTime; //Reset coyote counter when on the ground
-                jumpCounter = extraJumps; //Reset jump counter to extra jump value
+                coyoteCounter = coyoteTime; 
+                jumpCounter = extraJumps; 
             }
             else
-                coyoteCounter -= Time.deltaTime; //Start decreasing coyote counter when not on the ground
+                coyoteCounter -= Time.deltaTime; 
         }
     }
 
     private void Jump()
     {
         if (coyoteCounter <= 0 && !onWall() && jumpCounter <= 0) return; 
-        //If coyote counter is 0 or less and not on the wall and don't have any extra jumps don't do anything
+        
 
         SoundManager.instance.PlaySound(jumpSound);
 
-        if (onWall())
+        if ( onWall() )
             WallJump();
         else
         {
@@ -96,12 +100,12 @@ public class PlayerMovement : MonoBehaviour
                 body.velocity = new Vector2(body.velocity.x, jumpPower);
             else
             {
-                //If not on the ground and coyote counter bigger than 0 do a normal jump
+                
                 if (coyoteCounter > 0)
                     body.velocity = new Vector2(body.velocity.x, jumpPower);
                 else
                 {
-                    if (jumpCounter > 0) //If we have extra jumps then jump and decrease the jump counter
+                    if (jumpCounter > 0) 
                     {
                         body.velocity = new Vector2(body.velocity.x, jumpPower);
                         jumpCounter--;
@@ -109,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            //Reset coyote counter to 0 to avoid double jumps
+            
             coyoteCounter = 0;
         }
     }
@@ -135,4 +139,5 @@ public class PlayerMovement : MonoBehaviour
     {
         return horizontalInput == 0 && isGrounded() && !onWall();
     }
+    
 }

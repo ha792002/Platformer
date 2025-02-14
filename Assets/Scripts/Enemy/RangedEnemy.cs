@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
 {
@@ -12,12 +12,12 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] private GameObject[] fireballs;
 
     [Header("Collider Parameters")]
-    [SerializeField] private float colliderDistance;
-    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private float colliderDistance;//khoảng cách tính từ kẻ địch đến phạm vi phát hiện 
+    [SerializeField] private BoxCollider2D boxCollider;//collider của kẻ địch để phát hiện va chạm 
 
     [Header("Player Layer")]
-    [SerializeField] private LayerMask playerLayer;
-    private float cooldownTimer = Mathf.Infinity;
+    [SerializeField] private LayerMask playerLayer;//lớp của người chơi để kiểm tra va chạm
+    private float cooldownTimer = Mathf.Infinity;//bộ đếm thời gian hồi chiêu
 
     [Header("Fireball Sound")]
     [SerializeField] private AudioClip fireballSound;
@@ -32,11 +32,11 @@ public class RangedEnemy : MonoBehaviour
         enemyPatrol = GetComponentInParent<EnemyPatrol>();
     }
 
-    private void Update()
+    private void Update()//kiểm tra điều kiện tấn công
     {
         cooldownTimer += Time.deltaTime;
 
-        //Attack only when player in sight?
+        
         if (PlayerInSight())
         {
             if (cooldownTimer >= attackCooldown)
@@ -50,14 +50,14 @@ public class RangedEnemy : MonoBehaviour
             enemyPatrol.enabled = !PlayerInSight();
     }
 
-    private void RangedAttack()
+    private void RangedAttack()//tấn công bằng fireball
     {
         SoundManager.instance.PlaySound(fireballSound);
         cooldownTimer = 0;
         fireballs[FindFireball()].transform.position = firepoint.position;
         fireballs[FindFireball()].GetComponent<EnemyProjectile>().ActivateProjectile();
     }
-    private int FindFireball()
+    private int FindFireball()//tìm viên đạn chưa được sử dụng 
     {
         for (int i = 0; i < fireballs.Length; i++)
         {
@@ -67,7 +67,7 @@ public class RangedEnemy : MonoBehaviour
         return 0;
     }
 
-    private bool PlayerInSight()
+    private bool PlayerInSight()//kiểm tra xem người chơi có nằm trong vùng tấn công không
     {
         RaycastHit2D hit =
             Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
@@ -76,7 +76,7 @@ public class RangedEnemy : MonoBehaviour
 
         return hit.collider != null;
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmos()//hiển thị vùng phát hiện trong Scene View
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,

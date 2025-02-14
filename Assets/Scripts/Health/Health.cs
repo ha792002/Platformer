@@ -1,22 +1,22 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Health : MonoBehaviour
 {
     [Header ("Health")]
-    [SerializeField] private float startingHealth;
-    public float currentHealth { get; private set; }
+    [SerializeField] private float startingHealth;//trạng thái máu của nhân vật ban đầu
+    public float currentHealth { get; private set; }//lượng máu hiện tại
     private Animator anim;
     private bool dead;
 
-    [Header("iFrames")]
-    [SerializeField] private float iFramesDuration;
-    [SerializeField] private int numberOfFlashes;
-    private SpriteRenderer spriteRend;
+    [Header("iFrames")]//chức năng bất tử
+    [SerializeField] private float iFramesDuration;//thời gian nhân vật bất tử sau khi nhận sát thương 
+    [SerializeField] private int numberOfFlashes;//số lần nhân vật nhấp nháy để thể hiện nhân vật
+    private SpriteRenderer spriteRend;//thay đổi màu của nhân vật sau khi bị tấn công 
 
     [Header("Components")]
-    [SerializeField] private Behaviour[] components;
-    private bool invulnerable;
+    [SerializeField] private Behaviour[] components;//cần vô hiệu hóa  Behaviour khi nhân vật chết  
+    private bool invulnerable;//biến kiểm soát trạng thái bất tử
 
     [Header("Death Sound")]
     [SerializeField] private AudioClip deathSound;
@@ -80,7 +80,7 @@ public class Health : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    //Respawn
+    //hàm hồi sinh
     public void Respawn()
     {
         AddHealth(startingHealth);
@@ -89,7 +89,7 @@ public class Health : MonoBehaviour
         StartCoroutine(Invunerability());
         dead = false;
 
-        //Activate all attached component classes
+        //kích hoạt tất cả các lớp
         foreach (Behaviour component in components)
             component.enabled = true;
     }
