@@ -51,18 +51,18 @@ public class Firetrap : MonoBehaviour
     }
     private IEnumerator ActivateFiretrap()
     {
-        //turn the sprite red to notify the player and trigger the trap
+        //biến bẫy thành màu đỏ chuẩn bị kích hoạt bẫy 
         triggered = true;
         spriteRend.color = Color.red;
 
-        //Wait for delay, activate trap, turn on animation, return color back to normal
+        //chờ độ trễ kích hoạt bẫy 
         yield return new WaitForSeconds(activationDelay);
         SoundManager.instance.PlaySound(firetrapSound);
-        spriteRend.color = Color.white; //turn the sprite back to its initial color
+        spriteRend.color = Color.white; //biến sprite trở thành màu ban đầu 
         active = true;
         anim.SetBool("activated", true);
 
-        //Wait until X seconds, deactivate trap and reset all variables and animator
+        
         yield return new WaitForSeconds(activeTime);
         active = false;
         triggered = false;

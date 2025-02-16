@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         cooldownTimer += Time.deltaTime;
 
-        //Attack only when player in sight?
+        //chỉ tấn công khi nhìn thấy player
         if (PlayerInSight())
         {
             if (cooldownTimer >= attackCooldown)

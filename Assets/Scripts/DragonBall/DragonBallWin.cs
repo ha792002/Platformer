@@ -1,18 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class DragonBallWin : MonoBehaviour
 {
-    // Reference to the UI Canvas that contains the win screen
+    // gọi đến UICanvas win
     public GameObject winCanvas;
 
-    // Optional: Reference to win sound effect
-    public AudioSource winSound;
-
-    // Optional: Reference to player movement script
+    // hàm di chuyển của người chơi
     public MonoBehaviour playerMovement;
 
-    // Make sure canvas is hidden at start
+    // canvas được ẩn đi khi game bắt đầu
     void Start()
     {
         if (winCanvas != null)
@@ -21,7 +18,7 @@ public class DragonBallWin : MonoBehaviour
         }
     }
 
-    // Detect collision with player
+    // phát hiện va chạm với người chơi
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -30,37 +27,27 @@ public class DragonBallWin : MonoBehaviour
         }
     }
 
-    // Show win screen and handle game state
+    // Hiển thị màn hình chiến thắng
     void ShowWinScreen()
     {
-        // Show the win canvas
+        // hiển thị màn camvas win
         if (winCanvas != null)
         {
             winCanvas.SetActive(true);
         }
 
-        // Play win sound if assigned
-        if (winSound != null)
-        {
-            winSound.Play();
-        }
+        
+       
 
-        // Optional: Disable player movement when game is won
+        // tắt chuyển động của người chơi khi trò chơi kết thúc 
         if (playerMovement != null)
         {
             playerMovement.enabled = false;
         }
 
-        // Optional: Pause game time
+        // tạm dừng thời gian 
         Time.timeScale = 0f;
     }
 
-    // Optional: Method to restart game
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex
-        );
-    }
+ 
 }

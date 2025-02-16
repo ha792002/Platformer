@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Room : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class Room : MonoBehaviour
 
     private void Awake()
     {
-        //Save the initial positions of the enemies
+        //lưu vị trí ban đầu của kẻ địch
         initialPosition = new Vector3[enemies.Length];
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -15,13 +15,13 @@ public class Room : MonoBehaviour
                 initialPosition[i] = enemies[i].transform.position;
         }
 
-        //Deactivate rooms
+        
         if (transform.GetSiblingIndex() != 0)
             ActivateRoom(false);
     }
     public void ActivateRoom(bool _status)
     {
-        //Activate/deactivate enemies
+        //kích hoạt vô hiệu hóa phòng
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)

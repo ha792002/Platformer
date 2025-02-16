@@ -48,16 +48,16 @@ public class MenuManager : MonoBehaviour
 
         if (currentPosition == 0)
         {
-            //Start game
+            
             SceneManager.LoadScene(PlayerPrefs.GetInt("level", 1));
         }
         else if (currentPosition == 1)
         {
-            //Open Settings
+            
         }
         else if (currentPosition == 2)
         {
-            //Open Credits
+            
         }
         else if (currentPosition == 3)
             Application.Quit();

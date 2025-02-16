@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
@@ -11,13 +11,13 @@ public class SoundManager : MonoBehaviour
         soundSource = GetComponent<AudioSource>();
         musicSource = transform.GetChild(0).GetComponent<AudioSource>();
 
-        //Keep this object even when we go to new scene
+        //Giữ nguyên đối tượng và trạng thái đối tượng ban đầu sang cảnh mới
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        //Destroy duplicate gameobjects
+        //Hủy bỏ đối tượng trò chơi trùng lặp
         else if (instance != null && instance != this)
             Destroy(gameObject);
     }

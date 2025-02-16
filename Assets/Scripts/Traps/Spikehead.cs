@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Spikehead : EnemyDamage
 {
@@ -21,7 +21,7 @@ public class Spikehead : EnemyDamage
     }
     private void Update()
     {
-        //Move spikehead to destination only if attacking
+        //chỉ di chuyển đến player nếu tẫn công 
         if (attacking)
             transform.Translate(destination * Time.deltaTime * speed);
         else
@@ -35,7 +35,7 @@ public class Spikehead : EnemyDamage
     {
         CalculateDirections();
 
-        //Check if spikehead sees player in all 4 directions
+        //kiểm tra bẫy có nhìn thầy người chơi ở cả 4 hướng không
         for (int i = 0; i < directions.Length; i++)
         {
             Debug.DrawRay(transform.position, directions[i], Color.red);
@@ -51,14 +51,14 @@ public class Spikehead : EnemyDamage
     }
     private void CalculateDirections()
     {
-        directions[0] = transform.right * range; //Right direction
-        directions[1] = -transform.right * range; //Left direction
-        directions[2] = transform.up * range; //Up direction
-        directions[3] = -transform.up * range; //Down direction
+        directions[0] = transform.right * range; //phải 
+        directions[1] = -transform.right * range; //trái 
+        directions[2] = transform.up * range; //trên
+        directions[3] = -transform.up * range; //Dưới
     }
     private void Stop()
     {
-        destination = transform.position; //Set destination as current position so it doesn't move
+        destination = transform.position; 
         attacking = false;
     }
 
@@ -66,6 +66,6 @@ public class Spikehead : EnemyDamage
     {
         SoundManager.instance.PlaySound(impactSound);
         base.OnTriggerEnter2D(collision);
-        Stop(); //Stop spikehead once he hits something
+        Stop(); //dừng bẫy khi đâm trúng player
     }
 }

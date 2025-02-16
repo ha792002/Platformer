@@ -43,7 +43,7 @@ public class Health : MonoBehaviour
         {
             if (!dead)
             {
-                //Deactivate all attached component classes
+                
                 foreach (Behaviour component in components)
                     component.enabled = false;
 

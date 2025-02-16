@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class NextDoor : MonoBehaviour
 {
     public string sceneToLoad;  
-    public Vector2 point1;  // First corner (x, y) of the area
-    public Vector2 point2;  // Second corner (x', y') of the area
+    public Vector2 point1;  // góc đầu tiên (x, y) 
+    public Vector2 point2;  //góc thứ 2 (x', y') 
 
     void Update()
     {

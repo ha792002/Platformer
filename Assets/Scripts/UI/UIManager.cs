@@ -17,32 +17,32 @@ public class UIManager : MonoBehaviour
  
 
     #region Game Over Functions
-    //Game over function
+    
     public void GameOver()
     {
         gameOverScreen.SetActive(true);
         SoundManager.instance.PlaySound(gameOverSound);
     }
 
-    //Restart level
+    
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    //Activate game over screen
+    //bật màn hình kết thúc 
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
     }
 
-    //Quit game/exit play mode if in Editor
+    //thoát trò chơi
     public void Quit()
     {
-        Application.Quit(); //Quits the game (only works in build)
+        Application.Quit(); 
 
         #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; //Exits play mode
+        UnityEditor.EditorApplication.isPlaying = false; 
         #endif
     }
     #endregion
